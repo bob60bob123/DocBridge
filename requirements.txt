@@ -1,0 +1,15 @@
+# 核心依赖
+PyMuPDF>=1.23.0
+pdfminer.six>=20221105
+python-docx>=1.0.0
+markdown>=3.5
+click>=8.0
+tqdm>=4.65
+
+# OCR 支持（扫描件/图片型PDF识别）
+rapidocr-onnxruntime>=1.4.0
+
+# 可选依赖
+# weasyprint>=60.0  # MD转PDF，Windows需要GTK3运行时
+# Gradio>=4.0       # 网页界面
+# PyQt5>=5.15       # 桌面GUI
